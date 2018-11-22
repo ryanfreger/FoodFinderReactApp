@@ -1,7 +1,14 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import Modal from 'react-responsive-modal';
 import './index.css';
 import App from './App';
+import Header from './header.js'
+import SearchBar from './SearchResults.js';
+import InfoCard from './SearchResults.js';
+import 'bootstrap/dist/css/bootstrap.min.css';
+
+
 import * as serviceWorker from './serviceWorker';
 
 ReactDOM.render(<App />, document.getElementById('root'));
