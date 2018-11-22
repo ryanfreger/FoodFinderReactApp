@@ -39,6 +39,14 @@ constructor (props) {
 			justifyContent: 'center'
 		}
 
+		const red = {
+			color: 'red'
+		}
+
+		const green = {
+			color: 'green'
+		}
+
 		return (
 			<div style={style}>
 			<img src = {this.props.img} style={imgstyle}/>
@@ -56,7 +64,11 @@ constructor (props) {
             paddingLeft: '110px',
             paddingRight: '110px'}}>
           <h1>{this.props.name}</h1>
-        
+          <p>Phone: {this.props.phone}</p>
+          <section style={this.props.isClosed ? red : green}>
+          <p>{this.props.isClosed ? 'Closed' : 'Open'}</p>
+          </section>
+           <a href={this.props.yelpURL} target='blank'>Yelp Page</a>
         </section>
         </Modal>
 			</section>
@@ -77,7 +89,10 @@ class SearchBar extends React.Component {
     img: '',
     price: '',
     rating: '',
-    address: ''
+    address: '',
+    phone: '',
+    isClosed: false,
+    yelpURL: ''
     };
 
     this.handleCityChange = this.handleCityChange.bind(this);
@@ -110,7 +125,10 @@ class SearchBar extends React.Component {
       		img: res.data.businesses.image_url,
       		price: res.data.businesses.price,
       		rating: res.data.businesses.rating,
-      		address: res.data.businesses.display_address
+      		address: res.data.businesses.display_address,
+      		phone: res.data.businesses.display_phone,
+      		isClosed: res.data.businesses.is_closed,
+      		yelpURL: res.data.businesses.url 
       	})
       	return restaurants;
     });
@@ -132,6 +150,9 @@ class SearchBar extends React.Component {
           price={item.price}
           rating={item.rating}
           address={item.location.display_address}
+          phone={item.display_phone}
+          isClosed={item.is_closed}
+          yelpURL={item.url}
         />)
 
  			const container = {
@@ -148,8 +169,8 @@ class SearchBar extends React.Component {
     <div>
     <p id="instruction">Enter what you're in the mood for and your city to see your options!</p>
       <form onSubmit={this.handleSubmit}>
-      		<input id="search-field" className="col col-6" type="text" placeholder="What do you feel like?" value={this.state.value} onChange={this.handleTermChange} required autocomplete="off"/>
-          <input id="search-field" className="col col-6" type="text" placeholder="Enter City Name" value={this.state.value} onChange={this.handleCityChange} required autocomplete="off"/>
+      		<input id="search-field" className="col col-6" type="text" placeholder="What do you feel like?" value={this.state.value} onChange={this.handleTermChange} required autoComplete="off"/>
+          <input id="search-field" className="col col-6" type="text" placeholder="Enter City Name" value={this.state.value} onChange={this.handleCityChange} required autoComplete="off"/>
         <input id="submitButton" type="submit" value="Submit"/>
       </form>    
  <div style={container}>
