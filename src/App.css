@@ -169,3 +169,7 @@ select:focus {
   font-family: 'Open Sans', sans-serif;
 }
 
+#moreInfo {
+  background-color: #2ec178;
+  border-radius: 50px;
+}

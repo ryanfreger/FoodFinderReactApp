@@ -9,11 +9,20 @@ constructor (props) {
     super(props);
       this.state = {
     open: false,
+    isOpen: false,
+    placeID: '',
+    webSite: ''
   };
+
+  this.handleGetInfo = this.handleGetInfo.bind(this);
+  this.handleGoogleInfo = this.handleGoogleInfo.bind(this);
+  this.handlePlaceDetails = this.handlePlaceDetails.bind(this);
   }
 
 
   onOpenModal = () => {
+    this.handleGetInfo();
+    this.handleGoogleInfo();
     this.setState({ open: true });
   };
 
@@ -21,21 +30,63 @@ constructor (props) {
     this.setState({ open: false });
   };
 
+   handleGetInfo(event) {
+  	const self = this;
+    	axios.get('https://cors-anywhere.herokuapp.com/https://api.yelp.com/v3/businesses/' + this.props.id,{
+        headers: {
+            Authorization: `Bearer 9ieIkr1BsBWuaxHVV5ZG7iMast3LnfMUDcBC7McTVr8HGg3SjluntY3zlLg6eSf2u2OzH3OGzWY5vMzBRDWloXXzyx6pwOyVp2jM5lgwXaMbdQX4685510z5Xf7oW3Yx`
+        }
+    })
+
+    .then(function (res){
+        console.log(res)
+      	self.setState({isOpen:res.data.hours[0].is_open_now});
+    })
+    .catch(function(err){
+        console.log(err)
+    })
+  } 
+
+  handleGoogleInfo(event) {
+    const self=this;
+    axios.get('https://cors-anywhere.herokuapp.com/https://maps.googleapis.com/maps/api/place/findplacefromtext/json?input='+this.props.name+'&inputtype=textquery&fields=photos,id,place_id,formatted_address,name,rating,opening_hours,geometry&key=AIzaSyAhFXEDzk_C8XQdByz0pka_6Pff_GPeJ48')
+    .then(function (res){
+        console.log(res)
+        self.setState({placeID: res.data.candidates[0].place_id});
+        self.handlePlaceDetails();
+    })
+    .catch(function(err){
+        console.log(err)
+    })
+  }
+
+  handlePlaceDetails(event) {
+    const self=this;
+    axios.get('https://cors-anywhere.herokuapp.com/https://maps.googleapis.com/maps/api/place/details/json?placeid=' + this.state.placeID + '&key=AIzaSyAhFXEDzk_C8XQdByz0pka_6Pff_GPeJ48')
+    .then(function (res){
+        console.log(res)
+        self.setState({webSite: res.data.result.website});
+    })
+    .catch(function(err){
+        console.log(err)
+    })
+  }
+
 	render() {
 		const style = {
 		border:'1px solid lightgray',
-		width:'341px',
+		width:'361px',
 		textAlign:'left',
 		alignItems: 'center',
-		minHeight:'550px',
-		maxHeight: '550px',
+		minHeight:'600px',
+		maxHeight: '600px',
 		margin: '35px',
 		backgroundColor: '#fff'
 		};
 
 		const imgstyle = {
-			width: '340px',
-			height: '340px',
+			width: '360px',
+			height: '360px',
 			justifyContent: 'center'
 		}
 
@@ -56,19 +107,24 @@ constructor (props) {
 			<p>Price: {this.props.price}</p>
 			<p>Rating: {this.props.rating}</p>
 			<p>{this.props.isClosed}</p>
-			<button onClick={this.onOpenModal}>More Info</button>
+			<button id="moreInfo" onClick={this.onOpenModal}>More Info</button>
         <Modal open={this.state.open} onClose={this.onCloseModal} center>
      <section style={{
             width: '100%',
             height: '600px',
             paddingLeft: '110px',
             paddingRight: '110px'}}>
+                    <img src='https://maps.googleapis.com/maps/api/staticmap?center=40.714728,-73.998672&zoom=14&size=300x300&key=AIzaSyAhFXEDzk_C8XQdByz0pka_6Pff_GPeJ48'/>
+
           <h1>{this.props.name}</h1>
+          <p>Rating: {this.props.rating} - Total Reviews: {this.props.reviewCount}</p>
           <p>Phone: {this.props.phone}</p>
-          <section style={this.props.isClosed ? red : green}>
-          <p>{this.props.isClosed ? 'Closed' : 'Open'}</p>
+          <section style={this.state.isOpen ? green : red}>
+          <p>{this.state.isOpen ? 'Currently Open' : 'Currently Closed'}</p>
           </section>
            <a href={this.props.yelpURL} target='blank'>Yelp Page</a>
+           <br/>
+           <p>{this.state.webSite ? <a href={this.state.webSite} target='blank'>Website</a> : null}</p>
         </section>
         </Modal>
 			</section>
@@ -76,6 +132,8 @@ constructor (props) {
 			);
 	}
 };
+
+
 
 
 class SearchBar extends React.Component {
@@ -92,7 +150,9 @@ class SearchBar extends React.Component {
     address: '',
     phone: '',
     isClosed: false,
-    yelpURL: ''
+    yelpURL: '',
+    reviewCount: '',
+    id: ''
     };
 
     this.handleCityChange = this.handleCityChange.bind(this);
@@ -128,7 +188,9 @@ class SearchBar extends React.Component {
       		address: res.data.businesses.display_address,
       		phone: res.data.businesses.display_phone,
       		isClosed: res.data.businesses.is_closed,
-      		yelpURL: res.data.businesses.url 
+      		yelpURL: res.data.businesses.url ,
+      		reviewCount: res.data.businesses.review_count,
+      		id: res.data.businesses.id
       	})
       	return restaurants;
     });
@@ -139,7 +201,6 @@ class SearchBar extends React.Component {
     event.preventDefault();
     console.log(this.state.city);
   } 
-
 
   render() {
   	{/*const options = this.state.comments.map((item, index) => <li key={index}>{`${item.name}`}</li>)*/}
@@ -153,6 +214,8 @@ class SearchBar extends React.Component {
           phone={item.display_phone}
           isClosed={item.is_closed}
           yelpURL={item.url}
+          reviewCount={item.review_count}
+          id={item.id}
         />)
 
  			const container = {
