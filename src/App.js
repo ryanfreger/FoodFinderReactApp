@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
 import Header from './header.js'
-import SearchBar from './SearchResults.js';
-import InfoCard from './SearchResults.js';
+import SearchResults from './SearchResults.js';
+import Infocard from './InfoCard.js';
 import Modal from 'react-responsive-modal';
 
 
@@ -12,10 +12,13 @@ class App extends Component {
     return (
       <div>
         <Header />
-        <SearchBar />
+        <SearchResults />
       </div>
     );
   }
 }
 
 export default App;
+
+
+

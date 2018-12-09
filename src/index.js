@@ -4,8 +4,8 @@ import Modal from 'react-responsive-modal';
 import './index.css';
 import App from './App';
 import Header from './header.js'
-import SearchBar from './SearchResults.js';
-import InfoCard from './SearchResults.js';
+import SearchResults from './SearchResults.js';
+import Infocard from './InfoCard.js';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 
