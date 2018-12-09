@@ -57,6 +57,7 @@ class SearchResults extends React.Component {
     })
     .then(function (res){
         console.log(res)
+        if(res.data.businesses.length >= 1) {
        let restaurants = res.data.businesses.map(function(place){
         self.setState({comments: res.data.businesses,
           name: res.data.businesses.name,
@@ -74,12 +75,14 @@ class SearchResults extends React.Component {
           isLoaded: true,
           errorMessage:''
         })
-    });       
+    });  
+} else {self.setState({errorMessage:`No results found for ${self.state.termValue} in ${self.state.locValue}!/nTry another search.`})}
     })
     .catch(function(err){
         console.log(err)
         self.setState({
-          errorMessage: 'Something went wrong!'
+          errorMessage: 'Something went wrong!',
+          isLoaded: ''
         })
     })
     
@@ -87,7 +90,7 @@ class SearchResults extends React.Component {
 
   render() {
     {/*const options = this.state.comments.map((item, index) => <li key={index}>{`${item.name}`}</li>)*/}
-    const options = this.state.comments.map((item, index) =>        <Infocard
+    const options = this.state.comments.map((item, index) =>  <Infocard
           key={index}
           name={item.name}
           img={item.image_url}
