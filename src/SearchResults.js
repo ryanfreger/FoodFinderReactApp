@@ -46,6 +46,7 @@ class SearchResults extends React.Component {
   }
  
   handleSubmit(event) {
+    event.preventDefault();
     const self = this;
     self.setState({isLoaded: false})
     //const YELP_KEY = process.env.REACT_APP_YELP_KEY;
@@ -70,7 +71,8 @@ class SearchResults extends React.Component {
           id: res.data.businesses.id,
           cityName: res.data.businesses.city,
           stateName: res.data.businesses.state,
-          isLoaded: true
+          isLoaded: true,
+          errorMessage:''
         })
     });       
     })
@@ -80,7 +82,7 @@ class SearchResults extends React.Component {
           errorMessage: 'Something went wrong!'
         })
     })
-    event.preventDefault();
+    
   } 
 
   render() {

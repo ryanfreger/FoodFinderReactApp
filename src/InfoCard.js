@@ -139,7 +139,7 @@ constructor (props) {
             width: '100%',
             maxWidth: '100%',
             minWidth: '300px',
-            height: '225px',
+            height: '235px',
             paddingRight: '110px'}}>
           <h1 style={{fontSize:'20px'}}>{this.props.name}</h1>
           <p>Rating: {this.props.rating} - Total Reviews: {this.props.reviewCount}</p>
