@@ -173,3 +173,37 @@ select:focus {
   background-color: #2ec178;
   border-radius: 50px;
 }
+
+  .tab {
+    margin-top: 40px;
+    color: rgba(0,0,0,0.6);
+    display: inline-block;
+    padding: 10px;
+    cursor: pointer;
+    border: 1px solid rgba(0,0,0,0.5);
+  }
+
+.active {
+    background-color: #2ec178;
+    font-weight: bold;
+  }
+
+  .content {
+    padding: 20px;
+    color: rgba(0,0,0,0.6);
+    width:100%;
+  }
+
+span p {
+  display: inline;
+}
+
+#nutrients {
+  display: block;
+  margin-top: 10px;
+}
+
+.block {
+  display: block;
+}
+
