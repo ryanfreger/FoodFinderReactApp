@@ -76,7 +76,8 @@ class SearchResults extends React.Component {
           errorMessage:''
         })
     });  
-} else {self.setState({errorMessage:`No results found for ${self.state.termValue} in ${self.state.locValue}!/nTry another search.`})}
+} else {self.setState({
+  errorMessage:`No results found for ${self.state.termValue} in ${self.state.locValue}!`})}
     })
     .catch(function(err){
         console.log(err)
@@ -123,7 +124,7 @@ if(this.state.errorMessage !== '') {
           <input id="search-field" className="col col-6" type="text" placeholder="What do you feel like?" value={this.state.value} onChange={this.handleTermChange} required autoComplete="off"/>
           <input id="search-field" className="col col-6" type="text" placeholder="Enter City Name" value={this.state.value} onChange={this.handleCityChange} required autoComplete="off"/>
         <input id="submitButton" type="submit" value="Submit"/>
-      </form> <div className="row align-items-center justify-content-center"><h1>{this.state.errorMessage}</h1></div></div>);
+      </form> <div className="row align-items-center justify-content-center"><h1 style={container}>{this.state.errorMessage}</h1></div></div>);
 }
 
     return (
