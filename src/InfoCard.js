@@ -95,15 +95,15 @@ constructor (props) {
 		width:'361px',
 		textAlign:'left',
 		alignItems: 'center',
-		minHeight:'600px',
-		maxHeight: '600px',
+		minHeight:'560px',
+		maxHeight: '560px',
 		margin: '35px',
 		backgroundColor: '#fff'
 		};
 
 		const imgstyle = {
 			width: '360px',
-			height: '360px',
+			height: '320px',
 			justifyContent: 'center'
 		}
 
@@ -139,7 +139,7 @@ constructor (props) {
             width: '100%',
             maxWidth: '100%',
             minWidth: '300px',
-            height: '450px',
+            height: '225px',
             paddingRight: '110px'}}>
           <h1 style={{fontSize:'20px'}}>{this.props.name}</h1>
           <p>Rating: {this.props.rating} - Total Reviews: {this.props.reviewCount}</p>
