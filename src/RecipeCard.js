@@ -43,7 +43,7 @@ constructor (props) {
 		  }
 
   {/* Create <li> tags with all items in ingrediantList for the recipe */}
-		let ingrediants = this.props.ingrediantList.map((item, index) => (
+		let ingredients = this.props.ingredientList.map((item, index) => (
         <li className="card-info" key={index}>{item}</li>
     ));
 
@@ -71,7 +71,7 @@ constructor (props) {
      				<p className="card-info"> Protein: {Math.floor(this.props.totalProtein)}</p> : null }
      				</span> : null }
             {/*clicking this button upens the Modal*/}
-     				<button style={block} id="moreInfo" onClick={this.onOpenModal}>Ingrediants</button>
+     				<button style={block} id="moreInfo" onClick={this.onOpenModal}>Ingredients</button>
    				</section>
    				<Modal open={this.state.open} onClose={this.onCloseModal} center>
      				<div>
@@ -81,9 +81,9 @@ constructor (props) {
   		            minWidth: '300px',
   		            height: '450px',
   		            paddingRight: '110px'}}>
-            <h2>Ingrediants</h2>
+            <h2>Ingredients</h2>
      				<ul>
-     				{ingrediants}
+     				{ingredients}
      				</ul>
      				</section>
      				</div>

@@ -200,7 +200,7 @@ class SearchResults extends React.Component {
         key={index}
         recipeLabel={item.recipe.label}
         recipeImg={item.recipe.image}
-        ingrediantList={item.recipe.ingredientLines}
+        ingredientList={item.recipe.ingredientLines}
         recipeCalories={item.recipe.calories}
         yield={item.recipe.yield}
         dietLabels={item.recipe.dietLabels}
