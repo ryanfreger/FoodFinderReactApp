@@ -8,8 +8,6 @@ import SearchResults from './SearchResults.js';
 import Infocard from './InfoCard.js';
 import Recipecard from './RecipeCard.js';
 import 'bootstrap/dist/css/bootstrap.min.css';
-
-
 import * as serviceWorker from './serviceWorker';
 
 ReactDOM.render(<App />, document.getElementById('root'));

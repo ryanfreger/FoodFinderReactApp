@@ -14,6 +14,7 @@ class Tabs extends React.Component {
     }
   }
   
+  //Used to set state active for active tab
   select = (i) => {
     let _this = this;
     return function() {
@@ -52,8 +53,8 @@ class Tabs extends React.Component {
   }
 }
 
-
-
+//This is parent component for InfoCard and RecipeCard
+//State set in this component and passed down to children as props
 class SearchResults extends React.Component {
   constructor(props) {
     super(props);
@@ -94,14 +95,20 @@ class SearchResults extends React.Component {
 
   }
 
+  //State of what is in input for city
   handleCityChange(event) {
     this.setState({locValue: event.target.value});
   }
 
+  //State for what is in input for term
   handleTermChange(event) {
     this.setState({termValue: event.target.value});
   }
   
+  //Submit function
+  //Makes asynchronous calls to Yelp and to Edamam
+  //Sets state for both what will be used in restaurants and recipes
+  //Includes error validation for HTTP error i.e. bad request and no results found for search
   handleSubmit(event) {
     event.preventDefault();
     const self = this;
@@ -114,10 +121,9 @@ class SearchResults extends React.Component {
             Authorization: `Bearer ${process.env.REACT_APP_YELP_KEY}`
         }
     }),
-      axios.get(`https://api.edamam.com/search?q=${this.state.termValue}&to=36&app_id=0781af48&app_key=5467ed1db8c5043cbf84cd24f07153e4`)
+      axios.get(`https://api.edamam.com/search?q=${this.state.termValue}&to=24&app_id=0781af48&app_key=5467ed1db8c5043cbf84cd24f07153e4`)
       ])
     .then(axios.spread(function (res,edamam){
-        //console.log(res)
         if(res.data.businesses.length >= 1) {
         let restaurants = res.data.businesses.map(function(place){
         self.setState({
@@ -138,10 +144,8 @@ class SearchResults extends React.Component {
           errorMessage:''
         })
     });  
-      //console.log(edamam.data.hits)
       if(edamam.data.hits.length >= 1) {
       let recipes = edamam.data.hits.map(function(recipe){
-        //console.log(edamam.data.hits)
         self.setState({
           recipes: edamam.data.hits,
           recipeLabel: recipe.recipe.label,
@@ -169,36 +173,40 @@ class SearchResults extends React.Component {
   }
 
   render() {
-    const options = this.state.restaurants.map((item, index) =>  <Infocard
-          key={index}
-          name={item.name}
-          img={item.image_url}
-          price={item.price}
-          rating={item.rating}
-          address={item.location.display_address}
-          phone={item.display_phone}
-          isClosed={item.is_closed}
-          yelpURL={item.url}
-          reviewCount={item.review_count}
-          id={item.id}
-          city={item.city}
-          stateName={item.state}
-          yelpLatitude={item.yelpLatitude}
-          yelpLongitude={item.yelpLongitude}
+
+    //Infocard for each element in restaurants
+    const options = this.state.restaurants.map((item, index) =>
+      <Infocard
+        key={index}
+        name={item.name}
+        img={item.image_url}
+        price={item.price}
+        rating={item.rating}
+        address={item.location.display_address}
+        phone={item.display_phone}
+        isClosed={item.is_closed}
+        yelpURL={item.url}
+        reviewCount={item.review_count}
+        id={item.id}
+        city={item.city}
+        stateName={item.state}
+        yelpLatitude={item.yelpLatitude}
+        yelpLongitude={item.yelpLongitude}
         />)
 
+    //Recipecard for each element in recipes
     const rec = this.state.recipes.map((item, index) => 
       <Recipecard
-      key={index}
-      recipeLabel={item.recipe.label}
-      recipeImg={item.recipe.image}
-      ingrediantList={item.recipe.ingredientLines}
-      recipeCalories={item.recipe.calories}
-      yield={item.recipe.yield}
-      dietLabels={item.recipe.dietLabels}
-      totalFat={item.recipe.totalNutrients.FAT.quantity}
-      totalCarbs={item.recipe.totalNutrients.CHOCDF.quantity}
-      totalProtein={item.recipe.totalNutrients.PROCNT.quantity}
+        key={index}
+        recipeLabel={item.recipe.label}
+        recipeImg={item.recipe.image}
+        ingrediantList={item.recipe.ingredientLines}
+        recipeCalories={item.recipe.calories}
+        yield={item.recipe.yield}
+        dietLabels={item.recipe.dietLabels}
+        totalFat={item.recipe.totalNutrients.FAT.quantity}
+        totalCarbs={item.recipe.totalNutrients.CHOCDF.quantity}
+        totalProtein={item.recipe.totalNutrients.PROCNT.quantity}
       />)
 
       const container = {
@@ -209,16 +217,14 @@ class SearchResults extends React.Component {
       textAlign:'center'
     };
 
-{/*<h1>Results for {this.state.termValue.charAt(0).toUpperCase() + this.state.termValue.slice(1)} in {this.state.locValue}</h1>*/}
 
-if(this.state.errorMessage !== '') {
-  return (<div><form onSubmit={this.handleSubmit}>
-          <input id="search-field" className="col col-6" type="text" placeholder="What do you feel like?" value={this.state.value} onChange={this.handleTermChange} required autoComplete="off"/>
-          <input id="search-field" className="col col-6" type="text" placeholder="Enter City Name" value={this.state.value} onChange={this.handleCityChange} required autoComplete="off"/>
-        <input id="submitButton" type="submit" value="Submit"/>
-      </form> <div className="row align-items-center justify-content-center"><h1 style={container}>{this.state.errorMessage}</h1></div></div>);
-}
-
+  if(this.state.errorMessage !== '') {
+    return (<div><form onSubmit={this.handleSubmit}>
+            <input id="search-field" className="col col-6" type="text" placeholder="What do you feel like?" value={this.state.value} onChange={this.handleTermChange} required autoComplete="off"/>
+            <input id="search-field" className="col col-6" type="text" placeholder="Enter City Name" value={this.state.value} onChange={this.handleCityChange} required autoComplete="off"/>
+          <input id="submitButton" type="submit" value="Submit"/>
+        </form> <div className="row align-items-center justify-content-center"><h1 style={container}>{this.state.errorMessage}</h1></div></div>);
+  }
     return (
     <div>
     <p id="instruction">Enter what you're in the mood for and your city to see your options.</p>
@@ -228,19 +234,19 @@ if(this.state.errorMessage !== '') {
           <input id="search-field" className="col col-6" type="text" placeholder="Enter City Name" value={this.state.value} onChange={this.handleCityChange} required autoComplete="off"/>
         <input id="submitButton" type="submit" value="Submit"/>
       </form> 
-{this.state.isLoaded !== false  ?
+ {this.state.isLoaded !== false  ?
  <div style={container}>
  <div>
  {options.length > 0 ? 
  <Tabs>Eat Out
  <div className="row align-items-center justify-content-center">
-{options}
-</div>
-Dine In
-<div className="row align-items-center justify-content-center">
-{rec}
-</div>
-</Tabs> : null }
+ {options}
+ </div>
+ Dine In
+ <div className="row align-items-center justify-content-center">
+ {rec}
+ </div>
+ </Tabs> : null }
  </div>
  </div>
  : <div className="row align-items-center justify-content-center"><img src="https://www.idlewild.org/wp-content/plugins/embed-bible-passages/images/ajax-loading.gif"/> </div>}
@@ -248,7 +254,5 @@ Dine In
     );
   }
 }
-
-
 
 export default SearchResults;
