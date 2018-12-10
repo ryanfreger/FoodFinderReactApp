@@ -70,11 +70,11 @@ constructor (props) {
    				</section>
    				<Modal open={this.state.open} onClose={this.onCloseModal} center>
    				<div>
-   				<section style={{
+   				<section className="align-items-center justify-content-center" style={{
 		            width: '100%',
 		            maxWidth: '100%',
 		            minWidth: '300px',
-		            height: '235px',
+		            height: '450px',
 		            paddingRight: '110px'}}>
    				<ul>
    				{ingrediants}
