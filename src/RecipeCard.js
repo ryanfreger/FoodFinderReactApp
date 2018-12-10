@@ -44,7 +44,7 @@ constructor (props) {
 
   {/* Create <li> tags with all items in ingrediantList for the recipe */}
 		let ingredients = this.props.ingredientList.map((item, index) => (
-        <li className="card-info" key={index}>{item}</li>
+        <li className="smaller-font" key={index}>{item}</li>
     ));
 
     {/* Create <p> tags with all items in dietLabels for the recipe */}
@@ -79,7 +79,7 @@ constructor (props) {
   		            width: '100%',
   		            maxWidth: '100%',
   		            minWidth: '300px',
-  		            height: '450px',
+  		            height: '465px',
   		            paddingRight: '110px'}}>
             <h2>Ingredients</h2>
      				<ul>

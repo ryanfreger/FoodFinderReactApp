@@ -210,3 +210,7 @@ span p {
 .card-info {
   font-size: 14px;
 }
+
+.smaller-font {
+  font-size: 12px;
+}
