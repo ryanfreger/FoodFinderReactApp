@@ -59,9 +59,10 @@ constructor (props) {
    				<p>Calories: {Math.floor(this.props.recipeCalories)} - Serves {this.props.yield}</p>
    				{this.props.dietLabels ?
    				<span>{labelsDiet}</span> : null }
-   				{this.props.totalFat && this.props.totalCarbs && this.props.totalProtein ?
+   				{this.props.totalFat || this.props.totalCarbs || this.props.totalProtein ?
    				<span id="nutrients">
-   				<p>Fat: {Math.floor(this.props.totalFat)},</p>
+          {this.props.totalFat ?
+   				<p>Fat: {Math.floor(this.props.totalFat)},</p> : null }
    				<p> Carbs: {Math.floor(this.props.totalCarbs)},</p>
    				<p> Protein: {Math.floor(this.props.totalProtein)}</p>
    				</span> : null }

@@ -4,13 +4,13 @@ import axios from 'axios';
 import './App.css';
 import Infocard from './InfoCard.js';
 import Recipecard from './RecipeCard.js';
-//console.log(process.env.REACT_APP_YELP_KEY);
+
 
 class Tabs extends React.Component {
   constructor(props) {
     super();
     this.state = {
-      active: 0
+      active: 0,   
     }
   }
   
@@ -22,7 +22,7 @@ class Tabs extends React.Component {
       });
     }
   }
-  
+
   renderTabs = () => {
     return React.Children.map(this.props.children, (item, i) => {
       if (i%2 === 0) {
@@ -91,6 +91,7 @@ class SearchResults extends React.Component {
     this.handleCityChange = this.handleCityChange.bind(this);
     this.handleTermChange = this.handleTermChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+
   }
 
   handleCityChange(event) {
@@ -100,18 +101,20 @@ class SearchResults extends React.Component {
   handleTermChange(event) {
     this.setState({termValue: event.target.value});
   }
- 
+  
   handleSubmit(event) {
     event.preventDefault();
     const self = this;
-    self.setState({isLoaded: false})
+    self.setState({
+      isLoaded: false
+    })
     axios.all([
-      axios.get(`https://cors-anywhere.herokuapp.com/https://api.yelp.com/v3/businesses/search?limit=50&term=${this.state.termValue}&location=${this.state.locValue}&categories=Food`,{
+      axios.get(`https://cors-anywhere.herokuapp.com/https://api.yelp.com/v3/businesses/search?limit=40&term=${this.state.termValue}&location=${this.state.locValue}&categories=Food`,{
         headers: {
             Authorization: `Bearer ${process.env.REACT_APP_YELP_KEY}`
         }
     }),
-      axios.get(`https://api.edamam.com/search?q=${this.state.termValue}&to=50&app_id=0781af48&app_key=5467ed1db8c5043cbf84cd24f07153e4`)
+      axios.get(`https://api.edamam.com/search?q=${this.state.termValue}&to=40&app_id=0781af48&app_key=5467ed1db8c5043cbf84cd24f07153e4`)
       ])
     .then(axios.spread(function (res,edamam){
         //console.log(res)
@@ -136,6 +139,7 @@ class SearchResults extends React.Component {
         })
     });  
       //console.log(edamam.data.hits)
+      if(edamam.data.hits.length >= 1) {
       let recipes = edamam.data.hits.map(function(recipe){
         //console.log(edamam.data.hits)
         self.setState({
@@ -150,7 +154,8 @@ class SearchResults extends React.Component {
           totalCarbs: recipe.recipe.totalNutrients.CHOCDF.quantity,
           totalProtein: recipe.recipe.totalNutrients.PROCNT.quantity
         })
-      })
+      }) 
+    }
 } else {self.setState({
   errorMessage:`No results found for ${self.state.termValue} in ${self.state.locValue}!`})}
     }))
@@ -161,8 +166,7 @@ class SearchResults extends React.Component {
           isLoaded: ''
         })
     })
-    
-  } 
+  }
 
   render() {
     const options = this.state.restaurants.map((item, index) =>  <Infocard
