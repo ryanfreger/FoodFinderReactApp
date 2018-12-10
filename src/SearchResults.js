@@ -109,12 +109,12 @@ class SearchResults extends React.Component {
       isLoaded: false
     })
     axios.all([
-      axios.get(`https://cors-anywhere.herokuapp.com/https://api.yelp.com/v3/businesses/search?limit=40&term=${this.state.termValue}&location=${this.state.locValue}&categories=Food`,{
+      axios.get(`https://cors-anywhere.herokuapp.com/https://api.yelp.com/v3/businesses/search?limit=36&term=${this.state.termValue}&location=${this.state.locValue}&categories=Food`,{
         headers: {
             Authorization: `Bearer ${process.env.REACT_APP_YELP_KEY}`
         }
     }),
-      axios.get(`https://api.edamam.com/search?q=${this.state.termValue}&to=40&app_id=0781af48&app_key=5467ed1db8c5043cbf84cd24f07153e4`)
+      axios.get(`https://api.edamam.com/search?q=${this.state.termValue}&to=36&app_id=0781af48&app_key=5467ed1db8c5043cbf84cd24f07153e4`)
       ])
     .then(axios.spread(function (res,edamam){
         //console.log(res)
