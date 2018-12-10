@@ -121,10 +121,10 @@ constructor (props) {
 			<img src = {this.props.img} style={imgstyle}/>
 			<section className="resInfo">
 			<p id="restaurantName">{this.props.name}</p>
-			<p>{this.props.address[0]} {this.props.address[1]}</p>
-			<p>Price: {this.props.price}</p>
-			<p>Rating: {this.props.rating}</p>
-			<p>{this.props.isClosed}</p>
+			<p className="card-info">{this.props.address[0]} {this.props.address[1]}</p>
+			<p className="card-info">Price: {this.props.price}</p>
+			<p className="card-info">Rating: {this.props.rating}</p>
+			<p className="card-info">{this.props.isClosed}</p>
 			<button id="moreInfo" onClick={this.onOpenModal}>More Info</button>
         <Modal open={this.state.open} onClose={this.onCloseModal} center>
         {this.state.isLoaded ? 

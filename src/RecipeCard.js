@@ -56,15 +56,15 @@ constructor (props) {
    				<img src = {this.props.recipeImg} style={imgstyle}/>
    				<section className="resInfo">
    				<p id="restaurantName">{this.props.recipeLabel}</p>
-   				<p>Calories: {Math.floor(this.props.recipeCalories)} - Serves {this.props.yield}</p>
+   				<p className="card-info">Calories: {Math.floor(this.props.recipeCalories)} - Serves {this.props.yield}</p>
    				{this.props.dietLabels ?
-   				<span>{labelsDiet}</span> : null }
+   				<span className="card-info">{labelsDiet}</span> : null }
    				{this.props.totalFat || this.props.totalCarbs || this.props.totalProtein ?
    				<span id="nutrients">
           {this.props.totalFat ?
-   				<p>Fat: {Math.floor(this.props.totalFat)},</p> : null }
-   				<p> Carbs: {Math.floor(this.props.totalCarbs)},</p>
-   				<p> Protein: {Math.floor(this.props.totalProtein)}</p>
+   				<p className="card-info">Fat: {Math.floor(this.props.totalFat)},</p> : null }
+   				<p className="card-info"> Carbs: {Math.floor(this.props.totalCarbs)},</p>
+   				<p className="card-info"> Protein: {Math.floor(this.props.totalProtein)}</p>
    				</span> : null }
    				<button style={block} id="moreInfo" onClick={this.onOpenModal}>Ingrediants</button>
    				</section>

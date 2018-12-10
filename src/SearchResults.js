@@ -221,7 +221,8 @@ if(this.state.errorMessage !== '') {
 
     return (
     <div>
-    <p id="instruction">Enter what you're in the mood for and your city to see your options!</p>
+    <p id="instruction">Enter what you're in the mood for and your city to see your options.</p>
+    <p id="instruction">Find both restaurants and recipes for what you're craving!</p>
       <form onSubmit={this.handleSubmit}>
           <input id="search-field" className="col col-6" type="text" placeholder="What do you feel like?" value={this.state.value} onChange={this.handleTermChange} required autoComplete="off"/>
           <input id="search-field" className="col col-6" type="text" placeholder="Enter City Name" value={this.state.value} onChange={this.handleCityChange} required autoComplete="off"/>
