@@ -1,6 +1,5 @@
 @import url('https://fonts.googleapis.com/css?family=Bangers');
-@import url('https://fonts.googleapis.com/css?family=Open+Sans')
-
+@import url('https://fonts.googleapis.com/css?family=Open+Sans');
 .App {
   text-align: center;
 }
@@ -22,6 +21,14 @@
   color: white;
 }
 
+.container {
+  display: flex;
+  flex-direction: row;
+  alignContent: center;
+  justifyContent: center;
+  textAlign: center;
+}
+
 #title {
   font-family: 'Bangers', cursive;
   letter-spacing: 0.11em;
@@ -40,65 +47,80 @@
   }
 }
 
-
 .flex-container {
-    text-align: center;
-      margin-left: auto;
+  /* text-align: center;
+  margin-left: auto;
   margin-right: auto;
-  display: grid;
+  display: grid; */
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
 }
 
 /* CSS Grid */
+
 .row {
-  margin: 20px 0; max-width:100%;}
+  margin: 20px 0;
+  max-width: 100%;
+}
 
 .row::after {
   content: "";
-  display: block;
-  clear: both; }
+  clear: both;
+  display: table;
+}
 
 .col {
   float: left;
   box-sizing: border-box;
-  padding: 0 20px;
-  display: inline-block; }
+  display: inline-block;
+}
 
 .col-1 {
-  width: 8.33%; }
+  width: 8.33%;
+}
 
 .col-2 {
-  width: 16.66%; }
+  width: 16.66%;
+}
 
 .col-3 {
-  width: 25%; }
+  width: 25%;
+}
 
 .col-4 {
-  width: 33.33%; }
+  min-width: 33.33%;
+}
 
 .col-5 {
-  width: 41.66%; }
+  width: 41.66%;
+}
 
 .col-6 {
-  width: 50%; }
+  width: 50%;
+}
 
 .col-7 {
-  width: 58.33%; }
+  width: 58.33%;
+}
 
 .col-8 {
-  width: 66.66%; }
+  width: 66.66%;
+}
 
 .col-9 {
-  width: 75%; }
+  width: 75%;
+}
 
 .col-10 {
-  width: 83.33%; }
+  width: 83.33%;
+}
 
 .col-11 {
-  width: 91.66%; }
+  width: 91.66%;
+}
 
 .col-12 {
-  width: 100%; }
-
+  width: 100%;
+}
 
 .grid-25 {
   width: 25%;
@@ -124,27 +146,26 @@
   margin: 0 auto;
   display: block;
   height: 60px;
-  width:120px;
+  width: 120px;
   font-size: 20px;
   border-radius: 50px;
 }
 
 #submitButton:hover {
-  border:2px solid #282c34;
+  border: 2px solid #282c34;
   height: 65px;
   width: 130px;
   background-color: #2ec178;
 }
 
 #search-field {
-  height:40px;
+  height: 40px;
   margin-bottom: 10px;
   font-size: 20px;
-  margin-top:20px;
+  margin-top: 20px;
 }
 
-#search-field:focus,
-select:focus {
+#search-field:focus, select:focus {
   outline: none;
   border: 0;
   box-shadow: inset 0 0 0 2px #FFC519;
@@ -152,7 +173,7 @@ select:focus {
 }
 
 #restaurantName {
-  font-size:21px;
+  font-size: 21px;
   text-align: left;
   margin-top: 10px;
 }
@@ -160,8 +181,8 @@ select:focus {
 #instruction {
   font-family: 'Open Sans', sans-serif;
   text-align: center;
-  margin-top:15px;
-  font-size:24px;
+  margin-top: 15px;
+  font-size: 20px;
 }
 
 .resInfo {
@@ -174,25 +195,25 @@ select:focus {
   border-radius: 50px;
 }
 
-  .tab {
-    margin-top: 40px;
-    color: rgba(0,0,0,0.6);
-    display: inline-block;
-    padding: 10px;
-    cursor: pointer;
-    border: 1px solid rgba(0,0,0,0.5);
-  }
+.tab {
+  margin-top: 40px;
+  color: rgba(0, 0, 0, 0.6);
+  display: inline-block;
+  padding: 10px;
+  cursor: pointer;
+  border: 1px solid rgba(0, 0, 0, 0.5);
+}
 
 .active {
-    background-color: #2ec178;
-    font-weight: bold;
-  }
+  background-color: #2ec178;
+  font-weight: bold;
+}
 
-  .content {
-    padding: 20px;
-    color: rgba(0,0,0,0.6);
-    width:100%;
-  }
+.content {
+  padding: 20px;
+  color: rgba(0, 0, 0, 0.6);
+  width: 100%;
+}
 
 span p {
   display: inline;

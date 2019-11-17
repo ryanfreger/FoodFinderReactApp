@@ -1,23 +1,14 @@
 import React, { Component } from 'react';
 import './App.css';
-import Header from './header.js'
-import SearchResults from './SearchResults.js';
-import Infocard from './InfoCard.js';
-import Recipecard from './RecipeCard.js';
-import Modal from 'react-responsive-modal';
+import SearchResultContainer from './SearchResultContainer';
 
 class App extends Component {
   render() {
     return (
       <div>
-        <Header />
-        <SearchResults />
+        <SearchResultContainer />
       </div>
     );
   }
 }
-
 export default App;
-
-
-
